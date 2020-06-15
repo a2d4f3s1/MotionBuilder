@@ -1,19 +1,25 @@
 # *- coding: utf-8 -*-　#UTF8宣言使えば日本語使える
-from pyfbsdk import FBConstraintManager, FBObjectList, FBGetSelectedObjects
+from pyfbsdk import FBConstraintManager, FBModelList, FBGetSelectedModels
 
-Objects = FBObjectList()
-FBGetSelectedObjects(Objects)
+Models = FBModelList()
+FBGetSelectedModels(Models)
 
-for Object in Objects:
-    print("Name = " + Object.Name)  #ObjectName
-    RotDOF = Object.PropertyList.Find("RotationActive").Data  #Enable Rotation DOF
-    print("RotDOF = " + str(RotDOF))
-    LclRot=Object.PropertyList.Find("Lcl Rotation").Data #Lcl Rotation
-    print("Lcl Rotation = " + str(LclRot))
-    PreRot=Object.PropertyList.Find("PreRotation").Data #PreRotation
-    print("PreRotatio = " + str(PreRot))
+print("始まり\n")
+
+for Model in Models:
+    print ("Model Name = " + Model.Name)  #Model Name
+    RotDOF = Model.PropertyList.Find("RotationActive")  #Enable Rotation DOF
+    print ("Enable Rotation DOF = " + str(RotDOF.Data))
+    LclRot=Model.PropertyList.Find("Lcl Rotation") #Lcl Rotation
+    print ("Lcl Rotation = " + str(LclRot.Data))
+    PreRot=Model.PropertyList.Find("PreRotation") #PreRotation
+    print ("Pre Rotation = " + str(PreRot.Data))
     
-    AAA = LclRot + PreRot
-    print (AAA)
+    AddRot = LclRot.Data + PreRot.Data
+    LclRot.Data=AddRot
+    print ("\n" + Model.Name + " = " + str(LclRot))
+    
+    RotDOF.Data = False
+    print ("Enable Rotation DOF = " + str(RotDOF.Data))
 
-print("終わり")
+print("\n終わり")

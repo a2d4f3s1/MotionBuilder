@@ -34,12 +34,12 @@ for Model in Models:
     else:
         print("Rotationのアニメーションが有効です\n")
     count = count + 1
-
 print("----- DOF Disable 処理完了 -----")
+
 for i in Models:  # 選択解除
     i.Selected = False
 Models.Selected = False
-print ("EulerXYZ以外を選択します")  # EulerEYX以外を選択
+print("EulerXYZ以外を選択します")  # EulerEYX以外を選択
 for i in OtherThanEulerXYZs:
-    print (i.Name)
+    print(i.Name)
     i.Selected = True
